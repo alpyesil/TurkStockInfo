@@ -10,7 +10,7 @@ public class FavoriteStock
         if (System.IO.File.Exists("Hisse/FavoriteStock.json"))
         {
             List<StockData> stockList = GetAllFavoriteStock();
-            
+
             stockList.Add(stockData);
 
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(stockList, Newtonsoft.Json.Formatting.Indented);
@@ -19,8 +19,13 @@ public class FavoriteStock
         }
         else
         {
-            string json = System.IO.File.ReadAllText("Hisse/FavoriteStock.json");
-            List<StockData> stockList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockData>>(json);
+            List<StockData> stockList = new();
+            stockList.Add(stockData);
+
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(stockList, Newtonsoft.Json.Formatting.Indented);
+            System.IO.File.WriteAllText("Hisse/FavoriteStock.json", json);
+
+            return;
         }
     }
 
@@ -28,10 +33,10 @@ public class FavoriteStock
     {
         if (System.IO.File.Exists("Hisse/FavoriteStock.json") == false)
             return new List<StockData>();
-        
+
         string json = System.IO.File.ReadAllText("Hisse/FavoriteStock.json");
         List<StockData> stockList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockData>>(json);
-        
+
         return UpdateFavoriteStockValue(stockList);
     }
 
@@ -46,7 +51,7 @@ public class FavoriteStock
 
         json = Newtonsoft.Json.JsonConvert.SerializeObject(stockList, Newtonsoft.Json.Formatting.Indented);
         System.IO.File.WriteAllText("Hisse/FavoriteStock.json", json);
-        
+
     }
 
     public List<StockData> UpdateFavoriteStockValue(List<StockData> stockList)
@@ -54,11 +59,11 @@ public class FavoriteStock
         ScrapeStock scrapeStock = new ScrapeStock();
 
         string localPath = new FindPath().GetFindPath();
-        
+
         List<StockData> arrangeStockList = new List<StockData>();
-        
+
         string alphabet = "ABCDEFGHIJKLMNOPQRSTUVYZ";
-        
+
         foreach (char letter in alphabet)
         {
             string sharing = letter.ToString();
@@ -84,7 +89,7 @@ public class FavoriteStock
         string json = Newtonsoft.Json.JsonConvert.SerializeObject(stockList, Newtonsoft.Json.Formatting.Indented);
 
         System.IO.File.WriteAllText("Hisse/FavoriteStock.json", json);
-        
+
         return stockList;
     }
 }

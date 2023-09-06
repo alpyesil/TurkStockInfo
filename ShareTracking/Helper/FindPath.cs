@@ -11,6 +11,6 @@ public class FindPath
             Directory.CreateDirectory("Hisse");
         }
 
-        return $"Hisse/{DateTime.Now.ToLocalTime()}.json";
+        return $"Hisse/hisse.json";
     }
 }

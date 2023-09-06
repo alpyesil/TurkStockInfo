@@ -3,11 +3,11 @@ namespace ShareTracking.Model;
 public class StockData
 {
     public string Hisse { get; set; }
-    public double Son { get; set; }
-    public double Dün { get; set; }
-    public double Yüzde { get; set; }
-    public double Yüksek { get; set; }
-    public double Düşük { get; set; }
-    public double HacimLot { get; set; }
-    public double HacimTL { get; set; }
+    public string Son { get; set; }
+    public string Dün { get; set; }
+    public string Yüzde { get; set; }
+    public string Yüksek { get; set; }
+    public string Düşük { get; set; }
+    public string HacimLot { get; set; }
+    public string HacimTL { get; set; }
 }
