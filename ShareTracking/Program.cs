@@ -8,6 +8,8 @@ namespace ShareTracking
 {
     class Program
     {
+        private static string halkaArzUrl = "https://halkarz.com/";
+        
         static void Main(string[] args)
         {
             Menu();
@@ -87,15 +89,26 @@ namespace ShareTracking
             
             favoriteStock.DeleteStock(name);
         }
+        
+        public  static void ShowStockListingInfo()
+        {
+            StockListingInfo stockListingInfo = new StockListingInfo();
+            string json = stockListingInfo.ScrapeStockData(halkaArzUrl);
+            Console.WriteLine(json);
+            Console.WriteLine("");
+            Menu();
+        }
 
         public static void Menu()
         {
+            Console.WriteLine("");
             Console.WriteLine("╔════════════════════════════════════════════════════════════════╗");
             Console.WriteLine("║ 1.Tüm hisse senetlerinin verilerini öğrenmek için 1'e basınız. ║");
             Console.WriteLine("║ 2.Öğrenmek istediğiniz spesifik hisse senedi için 2'ye basınız.║");
             Console.WriteLine("║ 3.Favori hisselerir görmek için 3'e basınız.                   ║");
             Console.WriteLine("║ 4.Favori hisse silmek için 4'e basınız.                        ║");
-            Console.WriteLine("║ 5.Çıkış.                                                       ║");
+            Console.WriteLine("║ 5.Halka Arzları Listelemek için 5'e basınız.                   ║");
+            Console.WriteLine("║ 6.Çıkış.                                                       ║");
             Console.WriteLine("╚════════════════════════════════════════════════════════════════╝");
             Console.WriteLine("");
             Console.Write("Seçiminiz: ");
@@ -118,6 +131,9 @@ namespace ShareTracking
                     DeleteFavoriStock();
                     break;
                 case 5:
+                    ShowStockListingInfo();
+                    break;
+                case 6:
                     // Çıkış
                     Environment.Exit(0);
                     break;
