@@ -11,9 +11,7 @@ public class ScrapeStock
     {
         List<StockData> stockList = new List<StockData>();
         string webContent = new WebClient().DownloadString(html);
-
-
-
+        
         string trPattern = @"<tr>\s*<td>\s*<a[^>]+>\s*<i[^>]+><\/i><span>([^<]+)<\/span>\s*<\/a>\s*<\/td>\s*<td>([^<]+)<\/td>\s*<td>([^<]+)<\/td>\s*<td>([^<]+)<\/td>\s*<td>([^<]+)<\/td>\s*<td>([^<]+)<\/td>\s*<td>([^<]+)<\/td>\s*<td>([^<]+)<\/td>\s*<\/tr>";
         Regex trRegex = new Regex(trPattern, RegexOptions.Singleline);
 
