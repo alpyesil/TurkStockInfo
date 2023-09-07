@@ -8,10 +8,9 @@ public class StockListingInfo
 {
     public string ScrapeStockData(string html)
     {
-        if (File.Exists($"StockListing/{DateTime.Today}.json"))
+        if (File.Exists($"StockListing/{DateTime.Today.Day}_{DateTime.Today.Month}_{DateTime.Today.Year}.json"))
         {
-            string asd =
-                File.ReadAllText(
+            string asd = File.ReadAllText(
                     $"StockListing/{DateTime.Today.Day}_{DateTime.Today.Month}_{DateTime.Today.Year}.json");
             return asd;
         }
@@ -65,7 +64,7 @@ public class StockListingInfo
 
                 stockList.Add(stock);
 
-                if (count == 10)
+                if (count == 5)
                 {
                     break;
                 }

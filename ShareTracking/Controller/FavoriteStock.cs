@@ -5,17 +5,20 @@ namespace ShareTracking.Controller;
 
 public class FavoriteStock
 {
-    public void AddFavoriteStock(StockData stockData)
+    public string AddFavoriteStock(StockData stockData)
     {
         if (System.IO.File.Exists("Hisse/FavoriteStock.json"))
         {
             List<StockData> stockList = GetAllFavoriteStock();
 
+            if (stockList.Find(x => x.Hisse == stockData.Hisse) != null)
+                return "Bu hisse zaten favorilerde.";
+            
             stockList.Add(stockData);
 
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(stockList, Newtonsoft.Json.Formatting.Indented);
             System.IO.File.WriteAllText("Hisse/FavoriteStock.json", json);
-            return;
+            return $"{stockData.Hisse} hissesi favorilere eklendi.";
         }
         else
         {
@@ -25,7 +28,7 @@ public class FavoriteStock
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(stockList, Newtonsoft.Json.Formatting.Indented);
             System.IO.File.WriteAllText("Hisse/FavoriteStock.json", json);
 
-            return;
+            return $"{stockData.Hisse} hissesi favorilere eklendi.";
         }
     }
 
@@ -40,18 +43,26 @@ public class FavoriteStock
         return UpdateFavoriteStockValue(stockList);
     }
 
-    public void DeleteStock(string name)
+    public string DeleteStock(string name)
     {
         if (System.IO.File.Exists("Hisse/FavoriteStock.json") == false)
-            return;
+            return "Favori hisse bulunamadı.";
+
+
         string json = System.IO.File.ReadAllText("Hisse/FavoriteStock.json");
         List<StockData> stockList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StockData>>(json);
         StockData stockData = stockList.Find(x => x.Hisse == name);
+
+        if (stockData == null)
+            return "Favori hisse bulunamadı.";
+
+
         stockList.Remove(stockData);
 
         json = Newtonsoft.Json.JsonConvert.SerializeObject(stockList, Newtonsoft.Json.Formatting.Indented);
         System.IO.File.WriteAllText("Hisse/FavoriteStock.json", json);
 
+        return $"{name} hissesi favorilerden kaldırıldı.";
     }
 
     public List<StockData> UpdateFavoriteStockValue(List<StockData> stockList)
