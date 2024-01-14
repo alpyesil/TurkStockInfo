@@ -8,9 +8,15 @@ namespace ShareTracking
 {
     class Program
     {
+        
+        
+        
         static void Main(string[] args)
         {
-            Menu();
+            // Menu();
+            NewScrapeStock newScrapeStock = new NewScrapeStock();
+            string html = "https://bigpara.hurriyet.com.tr/borsa/canli-borsa/tum-hisseler/";
+            newScrapeStock.ScrapeStockData(html);
         }
 
         private static void Menu()
